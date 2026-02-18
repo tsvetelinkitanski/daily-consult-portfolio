@@ -14,7 +14,7 @@ const Footer = ({ openPrivacyModal }) => {
           <div>
             <h4 className="font-bold mb-4">Бързи връзки</h4>
             <ul className="space-y-2 text-gray-400">
-              {['Начало', 'Услуги', 'За нас', 'Контакти'].map((item, i) => (
+              {['Начало', 'За нас', 'Услуги', 'Пакети', 'Въпроси', 'Контакти'].map((item, i) => (
                 <li key={i}><a href={`#${item.toLowerCase().replace(' ', '-')}`} className="hover:text-blue-400 transition">{item}</a></li>
               ))}
             </ul>
@@ -22,7 +22,7 @@ const Footer = ({ openPrivacyModal }) => {
           <div>
             <h4 className="font-bold mb-4">Услуги</h4>
             <ul className="space-y-2 text-gray-400">
-              {['Счетоводство', 'Данъчни консултации', 'Регистрации'].map((item, i) => (
+              {['Счетоводство', 'ТРЗ обслужване', 'Данъчни консултации', 'Регистрации'].map((item, i) => (
                 <li key={i}><a href="#services" className="hover:text-blue-400 transition">{item}</a></li>
               ))}
             </ul>
@@ -43,7 +43,7 @@ const Footer = ({ openPrivacyModal }) => {
           </div>
         </div>
         <div className="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm">
-          <p>&copy; 2024 DailyConsult. Всички права запазени.</p>
+          <p>&copy; {new Date().getFullYear()} DailyConsult. Всички права запазени.</p>
           <div className="mt-2 space-x-4">
             <button onClick={() => openPrivacyModal('privacy')} className="hover:text-blue-400 transition">Политика за поверителност</button>
             <span>•</span>

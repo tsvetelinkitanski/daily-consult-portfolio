@@ -2,8 +2,12 @@ import { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
-import Services from './components/Services';
 import About from './components/About';
+import Services from './components/Services';
+import HowWeWork from './components/HowWeWork';
+import Pricing from './components/Pricing';
+import Testimonials from './components/Testimonials';
+import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import CookieBanner from './components/CookieBanner';
@@ -67,6 +71,7 @@ function App() {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
     };
   }, []);
 
@@ -75,14 +80,18 @@ function App() {
       <Navbar openPrivacyModal={openPrivacyModal} />
       <Hero />
       <Stats />
-      <Services />
       <About />
+      <Services />
+      <HowWeWork />
+      <Pricing />
+      <Testimonials />
+      <FAQ />
       <Contact />
       <Footer openPrivacyModal={openPrivacyModal} />
       <CookieBanner onOpenPrivacy={openPrivacyModal} />
-      <PrivacyModal 
-        isOpen={privacyModal.isOpen} 
-        onClose={closePrivacyModal} 
+      <PrivacyModal
+        isOpen={privacyModal.isOpen}
+        onClose={closePrivacyModal}
         type={privacyModal.type}
       />
     </div>

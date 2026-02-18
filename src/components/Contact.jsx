@@ -29,7 +29,7 @@ const Contact = () => {
       if (response.ok) {
         setStatus({
           type: 'success',
-          message: '✅ Благодарим за запитването! Ще се свържем с Вас скоро.'
+          message: 'Благодарим за запитването! Ще се свържем с Вас скоро.'
         });
         setFormData({ name: '', email: '', phone: '', message: '' });
       } else {
@@ -38,7 +38,7 @@ const Contact = () => {
     } catch (error) {
       setStatus({
         type: 'error',
-        message: '❌ Възникна грешка. Моля опитайте отново или се свържете директно на 0878 170 726'
+        message: 'Възникна грешка. Моля опитайте отново или се свържете директно на 0878 170 726'
       });
     } finally {
       setIsSubmitting(false);
@@ -50,10 +50,10 @@ const Contact = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 section-animate">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Свържете се <span className="gradient-text">с нас</span>
+            Готови ли сте да работите със <span className="gradient-text">сигурен счетоводен партньор</span>?
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Готови сме да отговорим на вашите въпроси и да предложим най-доброто решение за вашия бизнес
+            Свържете се с нас днес и получете индивидуална оферта за вашия бизнес
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-12">
@@ -76,18 +76,18 @@ const Contact = () => {
                 <label className="block text-gray-700 font-semibold mb-2">Съобщение *</label>
                 <textarea rows="5" required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600 transition" placeholder="Как можем да ви помогнем?" value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} />
               </div>
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={isSubmitting}
                 className="w-full bg-gradient text-white py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? 'Изпращане...' : 'Изпрати запитване'}
               </button>
-              
+
               {status.message && (
                 <div className={`mt-4 p-4 rounded-lg text-center font-semibold ${
-                  status.type === 'success' 
-                    ? 'bg-green-100 text-green-800' 
+                  status.type === 'success'
+                    ? 'bg-green-100 text-green-800'
                     : 'bg-red-100 text-red-800'
                 }`}>
                   {status.message}
@@ -96,7 +96,7 @@ const Contact = () => {
             </form>
           </div>
           <div className="section-animate">
-            <div className="bg-white rounded-2xl p-8 shadow-lg mb-6">
+            <div className="bg-white rounded-2xl p-8 shadow-lg">
               <h3 className="text-2xl font-bold mb-6">Информация за контакт</h3>
               <div className="space-y-6">
                 {[
@@ -116,11 +116,6 @@ const Contact = () => {
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="bg-gradient text-white rounded-2xl p-8 shadow-lg">
-              <h4 className="text-2xl font-bold mb-4">Безплатна консултация</h4>
-              <p className="mb-4 opacity-90">Запазете среща за безплатна 30-минутна консултация с нашите експерти!</p>
-              <button className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">Запази час</button>
             </div>
           </div>
         </div>

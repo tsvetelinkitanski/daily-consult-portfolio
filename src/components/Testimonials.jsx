@@ -1,8 +1,20 @@
 const Testimonials = () => {
   const testimonials = [
-    { name: 'Георги Колев', company: 'Управител, ТехноТрейд ООД', text: 'Изключително професионален екип! Преминахме към тях преди 3 години и не сме съжалявали нито веднъж. Винаги навременни и коректни.' },
-    { name: 'Антоанета Тодорова', company: 'Собственик, Естетик БГ', text: 'Компетентни специалисти, които разбират нуждите на малкия бизнес. Препоръчвам ги с две ръце!' },
-    { name: 'Стефан Василев', company: 'Директор, ПроБилд ЕООД', text: 'Отлично съотношение цена-качество. Винаги са на разположение за консултация и съвет. Благодаря за професионализма!' }
+    {
+      name: 'Георги Колев',
+      company: 'Управител, ТехноТрейд ООД',
+      text: 'Работим с DailyConsult от 2 години. Коректност и бърза реакция при всякакви въпроси. Препоръчвам ги!'
+    },
+    {
+      name: 'Антоанета Тодорова',
+      company: 'Собственик, Естетик БГ',
+      text: 'Компетентни специалисти, които разбират нуждите на малкия бизнес. Персоналният подход прави разликата.'
+    },
+    {
+      name: 'Стефан Василев',
+      company: 'Директор, ПроБилд ЕООД',
+      text: 'Отлично съотношение цена-качество. Винаги са на разположение за консултация и съвет. Благодаря за професионализма!'
+    }
   ];
 
   return (
@@ -12,9 +24,6 @@ const Testimonials = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Какво казват <span className="gradient-text">клиентите</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Мненията на нашите доволни клиенти говорят за качеството на услугите ни
-          </p>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
@@ -26,7 +35,7 @@ const Testimonials = () => {
                   </svg>
                 ))}
               </div>
-              <p className="text-gray-600 mb-4 italic">{testimonial.text}</p>
+              <p className="text-gray-600 mb-6 italic leading-relaxed">"{testimonial.text}"</p>
               <div className="flex items-center">
                 <div className="w-12 h-12 bg-gradient rounded-full flex items-center justify-center text-white font-bold mr-3">
                   {testimonial.name.split(' ').map(n => n[0]).join('')}

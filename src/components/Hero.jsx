@@ -3,29 +3,29 @@ const Hero = () => {
     <section id="home" className="pt-32 pb-20 px-4 relative overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <img 
+        <img
           src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop"
-          alt="Financial consulting background"
+          alt="Счетоводно обслужване"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/60"></div>
       </div>
-      
+
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="fade-in-up">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              Вашият надежден <span className="gradient-text">финансов партньор</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              Надеждно счетоводно обслужване за <span className="gradient-text">малки и средни бизнеси</span>
             </h1>
             <p className="text-xl text-gray-700 mb-8 leading-relaxed">
-              Над 20 години опит в счетоводството. Професионално обслужване, прецизност и индивидуален подход към всеки клиент.
+              Поемаме вашето счетоводство, за да се фокусирате върху развитието на бизнеса си. Точност, прозрачност и спазване на всички законови срокове.
             </p>
             <div className="flex flex-wrap gap-4">
               <a href="#contact" className="bg-gradient text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
-                Свържете се с нас
+                Получете безплатна консултация
               </a>
               <a href="#services" className="bg-white text-blue-900 px-8 py-4 rounded-full font-semibold border-2 border-blue-900 hover:bg-blue-50 transition">
-                Нашите услуги
+                Вижте услугите
               </a>
             </div>
           </div>

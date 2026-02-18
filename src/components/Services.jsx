@@ -7,8 +7,18 @@ const Services = () => {
         </svg>
       ),
       title: 'Счетоводно обслужване',
-      description: 'Пълно счетоводно обслужване на фирми - първични документи, главна книга, счетоводни справки',
-      features: ['Месечно счетоводство', 'Годишни баланси', 'Отчети и справки']
+      description: 'Пълно счетоводно обслужване на фирми с прецизност и навременност',
+      features: ['Месечно счетоводство', 'ДДС декларации', 'Годишни финансови отчети', 'Справки и отчети']
+    },
+    {
+      icon: (
+        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+        </svg>
+      ),
+      title: 'ТРЗ и кадрово обслужване',
+      description: 'Пълно обслужване на трудовоправни отношения и заплати',
+      features: ['Трудови договори', 'Работни заплати', 'Осигуровки', 'Документи към НАП и НОИ']
     },
     {
       icon: (
@@ -18,7 +28,7 @@ const Services = () => {
       ),
       title: 'Данъчни консултации',
       description: 'Експертни данъчни консултации и оптимизация на данъчната тежест',
-      features: ['ДДС и ЗДДС', 'ЗКПО и ЗДДФЛ', 'Данъчна оптимизация']
+      features: ['Данъчна оптимизация', 'ЗКПО и ЗДДФЛ', 'Регистрация по ДДС']
     },
     {
       icon: (
@@ -26,29 +36,9 @@ const Services = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
         </svg>
       ),
-      title: 'Регистрации на фирми',
+      title: 'Регистрация и промени на фирми',
       description: 'Регистрация на нови дружества и промени в съществуващи',
-      features: ['ЕООД, ООД, АД', 'Промени в дружества', 'Бърза регистрация']
-    },
-    {
-      icon: (
-        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-        </svg>
-      ),
-      title: 'Кадрово счетоводство',
-      description: 'Пълно обслужване на кадрови документи и трудови договори',
-      features: ['Трудови договори', 'Заплати и осигуровки', 'НАП и НОИ']
-    },
-    {
-      icon: (
-        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-        </svg>
-      ),
-      title: 'Финансов анализ',
-      description: 'Детайлен финансов анализ и бизнес консултации',
-      features: ['Финансови отчети', 'Бизнес планове', 'Стратегии']
+      features: ['ЕООД, ООД', 'Промени в обстоятелства', 'Бърза процедура']
     }
   ];
 
@@ -64,9 +54,9 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => (
-            <div 
+            <div
               key={index}
               className="bg-white rounded-2xl p-8 shadow-lg card-hover section-animate"
               style={{ animationDelay: `${index * 0.1}s` }}
@@ -74,12 +64,12 @@ const Services = () => {
               <div className="w-16 h-16 bg-gradient rounded-xl flex items-center justify-center mb-6">
                 {service.icon}
               </div>
-              <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
+              <h3 className="text-xl font-bold mb-4">{service.title}</h3>
               <p className="text-gray-600 mb-4">{service.description}</p>
               <ul className="space-y-2">
                 {service.features.map((feature, idx) => (
                   <li key={idx} className="flex items-center text-gray-700">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
                     </svg>
                     {feature}

@@ -15,8 +15,10 @@ const Navbar = () => {
           
           <div className="hidden md:flex space-x-8">
             <a href="#home" className="text-gray-700 hover:text-blue-900 transition font-medium">Начало</a>
-            <a href="#services" className="text-gray-700 hover:text-blue-900 transition font-medium">Услуги</a>
             <a href="#about" className="text-gray-700 hover:text-blue-900 transition font-medium">За нас</a>
+            <a href="#services" className="text-gray-700 hover:text-blue-900 transition font-medium">Услуги</a>
+            <a href="#pricing" className="text-gray-700 hover:text-blue-900 transition font-medium">Пакети</a>
+            <a href="#faq" className="text-gray-700 hover:text-blue-900 transition font-medium">Въпроси</a>
             <a href="#contact" className="text-gray-700 hover:text-blue-900 transition font-medium">Контакти</a>
           </div>
           
@@ -33,10 +35,12 @@ const Navbar = () => {
         {/* Mobile menu */}
         {isOpen && (
           <div className="md:hidden pb-4">
-            <a href="#home" className="block py-2 text-gray-700 hover:text-blue-900">Начало</a>
-            <a href="#services" className="block py-2 text-gray-700 hover:text-blue-900">Услуги</a>
-            <a href="#about" className="block py-2 text-gray-700 hover:text-blue-900">За нас</a>
-            <a href="#contact" className="block py-2 text-gray-700 hover:text-blue-900">Контакти</a>
+            <a href="#home" onClick={() => setIsOpen(false)} className="block py-2 text-gray-700 hover:text-blue-900">Начало</a>
+            <a href="#about" onClick={() => setIsOpen(false)} className="block py-2 text-gray-700 hover:text-blue-900">За нас</a>
+            <a href="#services" onClick={() => setIsOpen(false)} className="block py-2 text-gray-700 hover:text-blue-900">Услуги</a>
+            <a href="#pricing" onClick={() => setIsOpen(false)} className="block py-2 text-gray-700 hover:text-blue-900">Пакети</a>
+            <a href="#faq" onClick={() => setIsOpen(false)} className="block py-2 text-gray-700 hover:text-blue-900">Въпроси</a>
+            <a href="#contact" onClick={() => setIsOpen(false)} className="block py-2 text-gray-700 hover:text-blue-900">Контакти</a>
           </div>
         )}
       </div>
