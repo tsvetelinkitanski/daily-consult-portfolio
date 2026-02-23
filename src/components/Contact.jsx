@@ -11,7 +11,7 @@ const Contact = () => {
     setStatus({ type: '', message: '' });
 
     try {
-      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      const response = await fetch('https://formspree.io/f/mblblnyv', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -103,7 +103,7 @@ const Contact = () => {
                   { icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>, title: 'Адрес', info: ['гр. София'] },
                   { icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>, title: 'Телефон', info: ['0878 170 726'] },
                   { icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>, title: 'Контакт', info: ['Симона Николова'] },
-                  { icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>, title: 'Работно време', info: ['Понеделник - Петък: 9:00 - 18:00'] }
+                  { icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>, title: 'Работно време', info: ['Понеделник - Петък: 9:00 - 17:00'] }
                 ].map((item, index) => (
                   <div key={index} className="flex items-start">
                     <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">

@@ -15,17 +15,17 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="fade-in-up">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Надеждно счетоводно обслужване за <span className="gradient-text">малки и средни бизнеси</span>
+              Експертно счетоводно обслужване за <span className="gradient-text">малки, средни и големи предприятия</span>
             </h1>
             <p className="text-xl text-gray-700 mb-8 leading-relaxed">
-              Поемаме вашето счетоводство, за да се фокусирате върху развитието на бизнеса си. Точност, прозрачност и спазване на всички законови срокове.
+              Стратегически финансов партньор с ангажимент към прецизност, прозрачност и устойчив растеж.
             </p>
             <div className="flex flex-wrap gap-4">
-              <a href="#contact" className="bg-gradient text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
-                Получете безплатна консултация
-              </a>
-              <a href="#services" className="bg-white text-blue-900 px-8 py-4 rounded-full font-semibold border-2 border-blue-900 hover:bg-blue-50 transition">
+              <a href="#services" className="bg-gradient text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
                 Вижте услугите
+              </a>
+              <a href="#contact" className="bg-white text-blue-900 px-8 py-4 rounded-full font-semibold border-2 border-blue-900 hover:bg-blue-50 transition">
+                Свържете се с нас
               </a>
             </div>
           </div>
