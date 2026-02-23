@@ -9,7 +9,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
             <span className="text-3xl font-light tracking-wider text-gray-800" style={{fontFamily: 'Georgia, serif', letterSpacing: '0.1em'}}>
-              DAILY<span className="font-semibold">CONSULT</span>
+              Daily<span className="font-semibold">Consult</span>
             </span>
           </div>
           

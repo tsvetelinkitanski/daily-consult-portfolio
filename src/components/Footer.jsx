@@ -6,7 +6,7 @@ const Footer = ({ openPrivacyModal }) => {
           <div>
             <div className="mb-4">
               <span className="text-2xl font-light tracking-wider text-gray-300" style={{fontFamily: 'Georgia, serif', letterSpacing: '0.1em'}}>
-                DAILY<span className="font-semibold">CONSULT</span>
+                Daily<span className="font-semibold">Consult</span>
               </span>
             </div>
             <p className="text-gray-400 text-sm">Вашият надежден партньор в счетоводството и финансовото управление.</p>
