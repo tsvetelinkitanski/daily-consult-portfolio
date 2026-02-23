@@ -23,8 +23,15 @@ const Footer = ({ openPrivacyModal }) => {
           <div>
             <h4 className="font-bold mb-4">Бързи връзки</h4>
             <ul className="space-y-2 text-gray-400">
-              {['Начало', 'За нас', 'Услуги', 'Пакети', 'Въпроси', 'Контакти'].map((item, i) => (
-                <li key={i}><a href={`#${item.toLowerCase().replace(' ', '-')}`} className="hover:text-blue-400 transition">{item}</a></li>
+              {[
+                { label: 'Начало', href: '#home' },
+                { label: 'За нас', href: '#about' },
+                { label: 'Услуги', href: '#services' },
+                { label: 'Пакети', href: '#pricing' },
+                { label: 'Въпроси', href: '#faq' },
+                { label: 'Контакти', href: '#contact' }
+              ].map((item, i) => (
+                <li key={i}><a href={item.href} className="hover:text-blue-400 transition">{item.label}</a></li>
               ))}
             </ul>
           </div>

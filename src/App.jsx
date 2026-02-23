@@ -6,7 +6,6 @@ import About from './components/About';
 import Services from './components/Services';
 import HowWeWork from './components/HowWeWork';
 import Pricing from './components/Pricing';
-import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -84,7 +83,6 @@ function App() {
       <Services />
       <HowWeWork />
       <Pricing />
-      <Testimonials />
       <FAQ />
       <Contact />
       <Footer openPrivacyModal={openPrivacyModal} />
