@@ -8,6 +8,15 @@ const CookieBanner = ({ onOpenPrivacy }) => {
     if (!consent) {
       setShowBanner(true);
     }
+
+    // Listen for cookie settings reset
+    const handleReset = () => {
+      localStorage.removeItem('cookieConsent');
+      localStorage.removeItem('cookieConsentDate');
+      setShowBanner(true);
+    };
+    window.addEventListener('resetCookieConsent', handleReset);
+    return () => window.removeEventListener('resetCookieConsent', handleReset);
   }, []);
 
   const acceptCookies = () => {
@@ -28,16 +37,16 @@ const CookieBanner = ({ onOpenPrivacy }) => {
     <div className="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-6 shadow-2xl z-50 animate-slide-up">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex-1">
-          <h3 className="font-bold text-lg mb-2">🍪 Бисквитки и поверителност</h3>
+          <h3 className="font-bold text-lg mb-2">Бисквитки и поверителност</h3>
           <p className="text-sm text-gray-300">
-            Този уебсайт използва строго необходими бисквитки за нормалното функциониране на сайта. 
-            Не използваме маркетингови или аналитични бисквитки без вашето съгласие. 
-            Вашите лични данни се обработват в съответствие с GDPR.{' '}
-            <button 
-              onClick={() => onOpenPrivacy('privacy')}
+            Този уебсайт използва строго необходими бисквитки за нормалното функциониране на сайта.
+            Не използваме маркетингови или аналитични бисквитки без вашето съгласие.
+            Вашите лични данни се обработват в съответствие с GDPR и ЗЗЛД.{' '}
+            <button
+              onClick={() => onOpenPrivacy('cookies')}
               className="underline hover:text-blue-400"
             >
-              Прочети повече
+              Политика за бисквитки
             </button>
           </p>
         </div>

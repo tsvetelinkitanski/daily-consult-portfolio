@@ -1,14 +1,65 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
+  const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState({ type: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState({});
+  const honeypotRef = useRef(null);
+  const lastSubmitTime = useRef(0);
+
+  const validateEmail = (email) => {
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+  };
+
+  const validatePhone = (phone) => {
+    const cleaned = phone.replace(/[\s\-()]/g, '');
+    return /^(\+?359|0)\d{9}$/.test(cleaned);
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.name.trim() || formData.name.trim().length < 2) {
+      newErrors.name = 'Моля, въведете валидно име (минимум 2 символа)';
+    }
+    if (!validateEmail(formData.email)) {
+      newErrors.email = 'Моля, въведете валиден имейл адрес';
+    }
+    if (!validatePhone(formData.phone)) {
+      newErrors.phone = 'Моля, въведете валиден телефонен номер (напр. 0888123456 или +359888123456)';
+    }
+    if (!formData.message.trim() || formData.message.trim().length < 10) {
+      newErrors.message = 'Съобщението трябва да е поне 10 символа';
+    }
+    if (!consent) {
+      newErrors.consent = 'Трябва да се съгласите с обработката на личните данни';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Honeypot check — ботове попълват скрити полета
+    if (honeypotRef.current && honeypotRef.current.value) {
+      setStatus({ type: 'success', message: 'Благодарим за запитването! Ще се свържем с Вас скоро.' });
+      return;
+    }
+
+    // Rate limiting — не позволявай повече от 1 заявка на 30 секунди
+    const now = Date.now();
+    if (now - lastSubmitTime.current < 30000) {
+      setStatus({ type: 'error', message: 'Моля, изчакайте малко преди да изпратите ново запитване.' });
+      return;
+    }
+
+    if (!validate()) return;
+
     setIsSubmitting(true);
     setStatus({ type: '', message: '' });
+    lastSubmitTime.current = now;
 
     try {
       const response = await fetch('https://formspree.io/f/mblblnyv', {
@@ -17,12 +68,12 @@ const Contact = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          message: formData.message,
-          _replyto: formData.email,
-          _subject: `Ново запитване от ${formData.name} - DailyConsult`,
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          message: formData.message.trim(),
+          _replyto: formData.email.trim(),
+          _subject: `Ново запитване от ${formData.name.trim()} - DailyConsult`,
         })
       });
 
@@ -32,6 +83,7 @@ const Contact = () => {
           message: 'Благодарим за запитването! Ще се свържем с Вас скоро.'
         });
         setFormData({ name: '', email: '', phone: '', message: '' });
+        setConsent(false);
       } else {
         throw new Error('Грешка при изпращане');
       }
@@ -59,23 +111,82 @@ const Contact = () => {
         <div className="grid md:grid-cols-2 gap-12">
           <div className="bg-white rounded-2xl p-8 shadow-lg section-animate">
             <h3 className="text-2xl font-bold mb-6">Изпратете запитване</h3>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+              {/* Honeypot — скрито поле за ботове */}
+              <div className="absolute" style={{ left: '-9999px', position: 'absolute' }} aria-hidden="true">
+                <input type="text" name="_gotcha" ref={honeypotRef} tabIndex="-1" autoComplete="off" />
+              </div>
+
               <div>
                 <label className="block text-gray-700 font-semibold mb-2">Име *</label>
-                <input type="text" required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600 transition" placeholder="Вашето име" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} />
+                <input
+                  type="text"
+                  required
+                  minLength={2}
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition ${errors.name ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-blue-600'}`}
+                  placeholder="Вашето име"
+                  value={formData.name}
+                  onChange={(e) => { setFormData({...formData, name: e.target.value}); setErrors({...errors, name: ''}); }}
+                />
+                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
               </div>
               <div>
                 <label className="block text-gray-700 font-semibold mb-2">Email *</label>
-                <input type="email" required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600 transition" placeholder="email@example.com" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} />
+                <input
+                  type="email"
+                  required
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-blue-600'}`}
+                  placeholder="email@example.com"
+                  value={formData.email}
+                  onChange={(e) => { setFormData({...formData, email: e.target.value}); setErrors({...errors, email: ''}); }}
+                />
+                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
               </div>
               <div>
                 <label className="block text-gray-700 font-semibold mb-2">Телефон *</label>
-                <input type="tel" required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600 transition" placeholder="+359 888 123 456" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} />
+                <input
+                  type="tel"
+                  required
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition ${errors.phone ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-blue-600'}`}
+                  placeholder="0888 123 456"
+                  value={formData.phone}
+                  onChange={(e) => { setFormData({...formData, phone: e.target.value}); setErrors({...errors, phone: ''}); }}
+                />
+                {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
               </div>
               <div>
                 <label className="block text-gray-700 font-semibold mb-2">Съобщение *</label>
-                <textarea rows="5" required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600 transition" placeholder="Как можем да ви помогнем?" value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} />
+                <textarea
+                  rows="5"
+                  required
+                  minLength={10}
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition ${errors.message ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-blue-600'}`}
+                  placeholder="Как можем да ви помогнем?"
+                  value={formData.message}
+                  onChange={(e) => { setFormData({...formData, message: e.target.value}); setErrors({...errors, message: ''}); }}
+                />
+                {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
               </div>
+
+              {/* GDPR Consent */}
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="gdpr-consent"
+                  checked={consent}
+                  onChange={(e) => { setConsent(e.target.checked); setErrors({...errors, consent: ''}); }}
+                  className="mt-1 w-4 h-4 text-blue-600 rounded focus:ring-blue-500 flex-shrink-0"
+                />
+                <label htmlFor="gdpr-consent" className="text-sm text-gray-600">
+                  Съгласен/а съм личните ми данни да бъдат обработени от DailyConsult за целите на отговор на моето запитване, съгласно{' '}
+                  <button type="button" onClick={() => window.dispatchEvent(new CustomEvent('openPrivacy', { detail: 'privacy' }))} className="text-blue-600 underline">
+                    Политиката за поверителност
+                  </button>
+                  {' '}и Регламент (ЕС) 2016/679 (GDPR). *
+                </label>
+              </div>
+              {errors.consent && <p className="text-red-500 text-sm">{errors.consent}</p>}
+
               <button
                 type="submit"
                 disabled={isSubmitting}

@@ -1,4 +1,8 @@
 const Footer = ({ openPrivacyModal }) => {
+  const resetCookies = () => {
+    window.dispatchEvent(new Event('resetCookieConsent'));
+  };
+
   return (
     <footer className="bg-gray-900 text-white py-12 px-4">
       <div className="max-w-7xl mx-auto">
@@ -9,7 +13,12 @@ const Footer = ({ openPrivacyModal }) => {
                 Daily<span className="font-semibold">Consult</span>
               </span>
             </div>
-            <p className="text-gray-400 text-sm">Вашият надежден партньор в счетоводството и финансовото управление.</p>
+            <p className="text-gray-400 text-sm mb-3">Вашият надежден партньор в счетоводството и финансовото управление.</p>
+            <div className="text-gray-500 text-xs space-y-1">
+              <p>ЕИК: [ще бъде допълнен]</p>
+              <p>гр. София</p>
+              <p>Тел: 0878 170 726</p>
+            </div>
           </div>
           <div>
             <h4 className="font-bold mb-4">Бързи връзки</h4>
@@ -44,12 +53,16 @@ const Footer = ({ openPrivacyModal }) => {
         </div>
         <div className="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm">
           <p>&copy; {new Date().getFullYear()} DailyConsult. Всички права запазени.</p>
-          <div className="mt-2 space-x-4">
+          <div className="mt-2 space-x-4 flex flex-wrap justify-center gap-y-1">
+            <button onClick={() => openPrivacyModal('terms')} className="hover:text-blue-400 transition">Общи условия</button>
+            <span>•</span>
             <button onClick={() => openPrivacyModal('privacy')} className="hover:text-blue-400 transition">Политика за поверителност</button>
             <span>•</span>
             <button onClick={() => openPrivacyModal('gdpr')} className="hover:text-blue-400 transition">GDPR</button>
             <span>•</span>
             <button onClick={() => openPrivacyModal('cookies')} className="hover:text-blue-400 transition">Бисквитки</button>
+            <span>•</span>
+            <button onClick={resetCookies} className="hover:text-blue-400 transition">Настройки за бисквитки</button>
           </div>
         </div>
       </div>
