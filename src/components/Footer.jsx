@@ -1,4 +1,8 @@
+import { useLanguage } from '../i18n/LanguageContext';
+
 const Footer = ({ openPrivacyModal }) => {
+  const { t } = useLanguage();
+
   const resetCookies = () => {
     window.dispatchEvent(new Event('resetCookieConsent'));
   };
@@ -13,7 +17,7 @@ const Footer = ({ openPrivacyModal }) => {
                 Daily<span className="font-semibold">Consult</span>
               </span>
             </div>
-            <p className="text-gray-400 text-sm mb-3">Вашият надежден партньор в счетоводството и финансовото управление.</p>
+            <p className="text-gray-400 text-sm mb-3">{t.footer.description}</p>
             <div className="text-gray-500 text-xs space-y-1">
               <p>ЕИК: [ще бъде допълнен]</p>
               <p>гр. София</p>
@@ -21,30 +25,30 @@ const Footer = ({ openPrivacyModal }) => {
             </div>
           </div>
           <div>
-            <h4 className="font-bold mb-4">Бързи връзки</h4>
+            <h4 className="font-bold mb-4">{t.footer.quickLinks}</h4>
             <ul className="space-y-2 text-gray-400">
               {[
-                { label: 'Начало', href: '#home' },
-                { label: 'За нас', href: '#about' },
-                { label: 'Услуги', href: '#services' },
-                { label: 'Пакети', href: '#pricing' },
-                { label: 'Въпроси', href: '#faq' },
-                { label: 'Контакти', href: '#contact' }
+                { label: t.nav.home, href: '#home' },
+                { label: t.nav.about, href: '#about' },
+                { label: t.nav.services, href: '#services' },
+                { label: t.nav.pricing, href: '#pricing' },
+                { label: t.nav.faq, href: '#faq' },
+                { label: t.nav.contact, href: '#contact' }
               ].map((item, i) => (
                 <li key={i}><a href={item.href} className="hover:text-blue-400 transition">{item.label}</a></li>
               ))}
             </ul>
           </div>
           <div>
-            <h4 className="font-bold mb-4">Услуги</h4>
+            <h4 className="font-bold mb-4">{t.footer.servicesTitle}</h4>
             <ul className="space-y-2 text-gray-400">
-              {['Счетоводство', 'ТРЗ обслужване', 'Данъчни консултации', 'Регистрации'].map((item, i) => (
+              {t.footer.servicesList.map((item, i) => (
                 <li key={i}><a href="#services" className="hover:text-blue-400 transition">{item}</a></li>
               ))}
             </ul>
           </div>
           <div>
-            <h4 className="font-bold mb-4">Последвайте ни</h4>
+            <h4 className="font-bold mb-4">{t.footer.followUs}</h4>
             <div className="flex space-x-4">
               {[
                 <path key="fb" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>,
@@ -59,17 +63,17 @@ const Footer = ({ openPrivacyModal }) => {
           </div>
         </div>
         <div className="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm">
-          <p>&copy; {new Date().getFullYear()} DailyConsult. Всички права запазени.</p>
+          <p>&copy; {new Date().getFullYear()} DailyConsult. {t.footer.rights}</p>
           <div className="mt-2 space-x-4 flex flex-wrap justify-center gap-y-1">
-            <button onClick={() => openPrivacyModal('terms')} className="hover:text-blue-400 transition">Общи условия</button>
+            <button onClick={() => openPrivacyModal('terms')} className="hover:text-blue-400 transition">{t.footer.terms}</button>
             <span>•</span>
-            <button onClick={() => openPrivacyModal('privacy')} className="hover:text-blue-400 transition">Политика за поверителност</button>
+            <button onClick={() => openPrivacyModal('privacy')} className="hover:text-blue-400 transition">{t.footer.privacy}</button>
             <span>•</span>
-            <button onClick={() => openPrivacyModal('gdpr')} className="hover:text-blue-400 transition">GDPR</button>
+            <button onClick={() => openPrivacyModal('gdpr')} className="hover:text-blue-400 transition">{t.footer.gdpr}</button>
             <span>•</span>
-            <button onClick={() => openPrivacyModal('cookies')} className="hover:text-blue-400 transition">Бисквитки</button>
+            <button onClick={() => openPrivacyModal('cookies')} className="hover:text-blue-400 transition">{t.footer.cookies}</button>
             <span>•</span>
-            <button onClick={resetCookies} className="hover:text-blue-400 transition">Настройки за бисквитки</button>
+            <button onClick={resetCookies} className="hover:text-blue-400 transition">{t.footer.cookieSettings}</button>
           </div>
         </div>
       </div>

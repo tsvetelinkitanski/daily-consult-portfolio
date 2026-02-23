@@ -1,42 +1,21 @@
 import { useState } from 'react';
+import { useLanguage } from '../i18n/LanguageContext';
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
-
-  const faqs = [
-    {
-      question: 'Колко струва счетоводното обслужване?',
-      answer: 'Цената зависи от обема на документооборота, наличието на ДДС регистрация и броя на служителите. Свържете се с нас за безплатна индивидуална оферта.'
-    },
-    {
-      question: 'Работите ли онлайн с клиенти от цялата страна?',
-      answer: 'Да! Обслужваме клиенти от цяла България дистанционно. Документите се обменят електронно, а консултациите се провеждат по телефон, имейл или видео среща.'
-    },
-    {
-      question: 'Какви документи са необходими за започване?',
-      answer: 'За стартиране на обслужването са ни необходими: удостоверение за актуално състояние, ДДС регистрация (ако имате), достъп до банкови извлечения и пълномощно за представителство пред НАП.'
-    },
-    {
-      question: 'Колко бързо можете да започнете обслужване?',
-      answer: 'След подписване на договор и предоставяне на необходимите документи можем да започнем обслужването веднага — обикновено в рамките на 1-2 работни дни.'
-    },
-    {
-      question: 'Помагате ли при данъчни проверки и ревизии?',
-      answer: 'Да, осигуряваме пълна подкрепа и представителство пред НАП при данъчни проверки и ревизии. Подготвяме всички необходими документи и обяснения.'
-    }
-  ];
+  const { t } = useLanguage();
 
   return (
     <section id="faq" className="py-20 px-4 bg-gray-50">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-16 section-animate">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Често задавани <span className="gradient-text">въпроси</span>
+            {t.faq.title} <span className="gradient-text">{t.faq.titleHighlight}</span>
           </h2>
         </div>
 
         <div className="space-y-4">
-          {faqs.map((faq, index) => (
+          {t.faq.items.map((faq, index) => (
             <div
               key={index}
               className="bg-white rounded-xl shadow-md overflow-hidden section-animate"

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { LanguageProvider } from './i18n/LanguageContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
@@ -75,24 +76,26 @@ function App() {
   }, []);
 
   return (
-    <div className="font-sans text-gray-800">
-      <Navbar openPrivacyModal={openPrivacyModal} />
-      <Hero />
-      <Stats />
-      <About />
-      <Services />
-      <HowWeWork />
-      <Pricing />
-      <FAQ />
-      <Contact />
-      <Footer openPrivacyModal={openPrivacyModal} />
-      <CookieBanner onOpenPrivacy={openPrivacyModal} />
-      <PrivacyModal
-        isOpen={privacyModal.isOpen}
-        onClose={closePrivacyModal}
-        type={privacyModal.type}
-      />
-    </div>
+    <LanguageProvider>
+      <div className="font-sans text-gray-800">
+        <Navbar openPrivacyModal={openPrivacyModal} />
+        <Hero />
+        <Stats />
+        <About />
+        <Services />
+        <HowWeWork />
+        <Pricing />
+        <FAQ />
+        <Contact />
+        <Footer openPrivacyModal={openPrivacyModal} />
+        <CookieBanner onOpenPrivacy={openPrivacyModal} />
+        <PrivacyModal
+          isOpen={privacyModal.isOpen}
+          onClose={closePrivacyModal}
+          type={privacyModal.type}
+        />
+      </div>
+    </LanguageProvider>
   );
 }
 

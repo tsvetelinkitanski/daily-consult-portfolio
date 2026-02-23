@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react';
+import { useLanguage } from '../i18n/LanguageContext';
 
 const Contact = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState({ type: '', message: '' });
@@ -21,19 +23,19 @@ const Contact = () => {
   const validate = () => {
     const newErrors = {};
     if (!formData.name.trim() || formData.name.trim().length < 2) {
-      newErrors.name = 'Моля, въведете валидно име (минимум 2 символа)';
+      newErrors.name = t.contact.errors.name;
     }
     if (!validateEmail(formData.email)) {
-      newErrors.email = 'Моля, въведете валиден имейл адрес';
+      newErrors.email = t.contact.errors.email;
     }
     if (!validatePhone(formData.phone)) {
-      newErrors.phone = 'Моля, въведете валиден телефонен номер (напр. 0888123456 или +359888123456)';
+      newErrors.phone = t.contact.errors.phone;
     }
     if (!formData.message.trim() || formData.message.trim().length < 10) {
-      newErrors.message = 'Съобщението трябва да е поне 10 символа';
+      newErrors.message = t.contact.errors.message;
     }
     if (!consent) {
-      newErrors.consent = 'Трябва да се съгласите с обработката на личните данни';
+      newErrors.consent = t.contact.errors.consent;
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -42,16 +44,16 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Honeypot check — ботове попълват скрити полета
+    // Honeypot check
     if (honeypotRef.current && honeypotRef.current.value) {
-      setStatus({ type: 'success', message: 'Благодарим за запитването! Ще се свържем с Вас скоро.' });
+      setStatus({ type: 'success', message: t.contact.success });
       return;
     }
 
-    // Rate limiting — не позволявай повече от 1 заявка на 30 секунди
+    // Rate limiting
     const now = Date.now();
     if (now - lastSubmitTime.current < 30000) {
-      setStatus({ type: 'error', message: 'Моля, изчакайте малко преди да изпратите ново запитване.' });
+      setStatus({ type: 'error', message: t.contact.rateLimit });
       return;
     }
 
@@ -80,17 +82,17 @@ const Contact = () => {
       if (response.ok) {
         setStatus({
           type: 'success',
-          message: 'Благодарим за запитването! Ще се свържем с Вас скоро.'
+          message: t.contact.success
         });
         setFormData({ name: '', email: '', phone: '', message: '' });
         setConsent(false);
       } else {
-        throw new Error('Грешка при изпращане');
+        throw new Error('Submit error');
       }
     } catch (error) {
       setStatus({
         type: 'error',
-        message: 'Възникна грешка. Моля опитайте отново или се свържете директно на 0878 170 726'
+        message: t.contact.error
       });
     } finally {
       setIsSubmitting(false);
@@ -102,66 +104,66 @@ const Contact = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 section-animate">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Готови ли сте да работите със <span className="gradient-text">сигурен счетоводен партньор</span>?
+            {t.contact.title} <span className="gradient-text">{t.contact.titleHighlight}</span>?
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Свържете се с нас днес и получете индивидуална оферта за вашия бизнес
+            {t.contact.subtitle}
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-12">
           <div className="bg-white rounded-2xl p-8 shadow-lg section-animate">
-            <h3 className="text-2xl font-bold mb-6">Изпратете запитване</h3>
+            <h3 className="text-2xl font-bold mb-6">{t.contact.formTitle}</h3>
             <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-              {/* Honeypot — скрито поле за ботове */}
+              {/* Honeypot */}
               <div className="absolute" style={{ left: '-9999px', position: 'absolute' }} aria-hidden="true">
                 <input type="text" name="_gotcha" ref={honeypotRef} tabIndex="-1" autoComplete="off" />
               </div>
 
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">Име *</label>
+                <label className="block text-gray-700 font-semibold mb-2">{t.contact.name} *</label>
                 <input
                   type="text"
                   required
                   minLength={2}
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition ${errors.name ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-blue-600'}`}
-                  placeholder="Вашето име"
+                  placeholder={t.contact.namePlaceholder}
                   value={formData.name}
                   onChange={(e) => { setFormData({...formData, name: e.target.value}); setErrors({...errors, name: ''}); }}
                 />
                 {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
               </div>
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">Email *</label>
+                <label className="block text-gray-700 font-semibold mb-2">{t.contact.email} *</label>
                 <input
                   type="email"
                   required
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-blue-600'}`}
-                  placeholder="email@example.com"
+                  placeholder={t.contact.emailPlaceholder}
                   value={formData.email}
                   onChange={(e) => { setFormData({...formData, email: e.target.value}); setErrors({...errors, email: ''}); }}
                 />
                 {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
               </div>
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">Телефон *</label>
+                <label className="block text-gray-700 font-semibold mb-2">{t.contact.phone} *</label>
                 <input
                   type="tel"
                   required
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition ${errors.phone ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-blue-600'}`}
-                  placeholder="0888 123 456"
+                  placeholder={t.contact.phonePlaceholder}
                   value={formData.phone}
                   onChange={(e) => { setFormData({...formData, phone: e.target.value}); setErrors({...errors, phone: ''}); }}
                 />
                 {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
               </div>
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">Съобщение *</label>
+                <label className="block text-gray-700 font-semibold mb-2">{t.contact.message} *</label>
                 <textarea
                   rows="5"
                   required
                   minLength={10}
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none transition ${errors.message ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-blue-600'}`}
-                  placeholder="Как можем да ви помогнем?"
+                  placeholder={t.contact.messagePlaceholder}
                   value={formData.message}
                   onChange={(e) => { setFormData({...formData, message: e.target.value}); setErrors({...errors, message: ''}); }}
                 />
@@ -178,11 +180,11 @@ const Contact = () => {
                   className="mt-1 w-4 h-4 text-blue-600 rounded focus:ring-blue-500 flex-shrink-0"
                 />
                 <label htmlFor="gdpr-consent" className="text-sm text-gray-600">
-                  Съгласен/а съм личните ми данни да бъдат обработени от DailyConsult за целите на отговор на моето запитване, съгласно{' '}
+                  {t.contact.consent}{' '}
                   <button type="button" onClick={() => window.dispatchEvent(new CustomEvent('openPrivacy', { detail: 'privacy' }))} className="text-blue-600 underline">
-                    Политиката за поверителност
+                    {t.contact.consentLink}
                   </button>
-                  {' '}и Регламент (ЕС) 2016/679 (GDPR). *
+                  {' '}{t.contact.consentEnd} *
                 </label>
               </div>
               {errors.consent && <p className="text-red-500 text-sm">{errors.consent}</p>}
@@ -192,7 +194,7 @@ const Contact = () => {
                 disabled={isSubmitting}
                 className="w-full bg-gradient text-white py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? 'Изпращане...' : 'Изпрати запитване'}
+                {isSubmitting ? t.contact.submitting : t.contact.submit}
               </button>
 
               {status.message && (
@@ -208,13 +210,13 @@ const Contact = () => {
           </div>
           <div className="section-animate">
             <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold mb-6">Информация за контакт</h3>
+              <h3 className="text-2xl font-bold mb-6">{t.contact.infoTitle}</h3>
               <div className="space-y-6">
                 {[
-                  { icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>, title: 'Адрес', info: ['гр. София'] },
-                  { icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>, title: 'Телефон', info: ['0878 170 726'] },
-                  { icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>, title: 'Контакт', info: ['Симона Николова'] },
-                  { icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>, title: 'Работно време', info: ['Понеделник - Петък: 9:00 - 17:00'] }
+                  { icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>, title: t.contact.address, info: [t.contact.addressValue] },
+                  { icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>, title: t.contact.phoneLabel, info: [t.contact.phoneValue] },
+                  { icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>, title: t.contact.contactPerson, info: [t.contact.contactPersonValue] },
+                  { icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>, title: t.contact.workingHours, info: [t.contact.workingHoursValue] }
                 ].map((item, index) => (
                   <div key={index} className="flex items-start">
                     <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">

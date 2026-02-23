@@ -1,4 +1,8 @@
+import { useLanguage } from '../i18n/LanguageContext';
+
 const Hero = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="home" className="pt-32 pb-20 px-4 relative overflow-hidden">
       {/* Background Image with Overlay */}
@@ -15,17 +19,17 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="fade-in-up">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Експертно счетоводно обслужване за <span className="gradient-text">малки, средни и големи предприятия</span>
+              {t.hero.title} <span className="gradient-text">{t.hero.titleHighlight}</span>
             </h1>
             <p className="text-xl text-gray-700 mb-8 leading-relaxed">
-              Стратегически финансов партньор с ангажимент към прецизност, прозрачност и устойчив растеж.
+              {t.hero.subtitle}
             </p>
             <div className="flex flex-wrap gap-4">
               <a href="#services" className="bg-gradient text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
-                Вижте услугите
+                {t.hero.cta1}
               </a>
               <a href="#contact" className="bg-white text-blue-900 px-8 py-4 rounded-full font-semibold border-2 border-blue-900 hover:bg-blue-50 transition">
-                Свържете се с нас
+                {t.hero.cta2}
               </a>
             </div>
           </div>
